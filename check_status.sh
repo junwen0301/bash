@@ -34,7 +34,7 @@ check_status(){
 		run_status=`sysctl net.ipv4.tcp_congestion_control | awk -F "= " '{print $2}'`
 		if [[ ${run_status} == "bbr" ]]; then
 			run_status=`lsmod | grep "bbr" | awk '{print $1}'`
-			if [[ ${run_status} == "tcp_bbr" ]]; then
+			if [[ ${run_status} == "tcp_bbr" || `sysctl net.core.default_qdisc|awk -F "= " '{print $2}'` == "fq" ]]; then
 				run_status="2"
 			else 
 				run_status="0"
