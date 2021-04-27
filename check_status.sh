@@ -31,7 +31,7 @@ check_status(){
 			run_status="0"
 		fi
 	elif [[ ${kernel_status} == "BBR" ]]; then
-		run_status=`sysctl net.ipv4.tcp_congestion_control | awk -F "= " '{print $2}' | awk -F "= " '{print $2}'`
+		run_status=`sysctl net.ipv4.tcp_congestion_control | awk -F "= " '{print $2}'`
 		if [[ ${run_status} == "bbr" ]]; then
 			run_status=`lsmod | grep "bbr" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_bbr" ]]; then
