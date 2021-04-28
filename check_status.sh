@@ -39,6 +39,12 @@ check_status(){
 			else 
 				run_status="0"
 			fi
+		elif [[ ${run_status} == "bbr2" ]]; then
+			if [[ `sysctl net.core.default_qdisc|awk -F "= " '{print $2}'` =~ "fq" ]]; then
+				run_status="7"
+			else 
+				run_status="0"
+			fi
 		elif [[ ${run_status} == "tsunami" ]]; then
 			run_status=`lsmod | grep "tsunami" | awk '{print $1}'`
 			if [[ ${run_status} == "tcp_tsunami" ]]; then
